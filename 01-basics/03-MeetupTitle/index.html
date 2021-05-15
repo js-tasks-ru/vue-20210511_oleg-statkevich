@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>MeetupTitle</title>
+  <style>
+    .container{
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+
+
+<!-- Решение -->
+<div id="app">
+  <div class="container">
+    <template v-for="meetup in filteredMeetups">
+        <input type="radio" v-bind:value="meetup.title" v-model="selectedMeetup">
+        <label>{{meetup.id}}</label><br>
+    </template>
+  </div>
+  <p>
+    {{selectedMeetup}}
+  </p>
+</div>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>

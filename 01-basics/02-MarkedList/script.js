@@ -30,42 +30,39 @@ const emails = [
   'Isaias_Kuhic@jarrett.net',
 ];
 
-
 // Требуется создать Vue приложение
-
 
 new Vue({
   el: '#app',
-  data:() => {
+  data: () => {
     return {
-      rawEmails:null,
-      inputValue:''
-    }
+      rawEmails: null,
+      inputValue: '',
+    };
   },
-  mounted(){
-    this.rawEmails = emails.map(email =>{
-      return {
-        email,
-        marked:false
-      }
-    })
-  },
-  computed:{
-    filteredEmails(){
-      if(!this.rawEmails)
-      return null;
 
-      return this.rawEmails.filter(email => {
-        console.log(email.email.includes(this.inputValue) )
-        if(email.email.includes(this.inputValue) && this.inputValue){
+  computed: {
+    filteredEmails() {
+      if (!this.rawEmails) return null;
+
+      return this.rawEmails.filter((email) => {
+        console.log(email.email.includes(this.inputValue));
+        if (email.email.includes(this.inputValue) && this.inputValue) {
           email.marked = true;
           return email;
         }
         email.marked = false;
         return email;
-      })
-    }
-  
-  } 
+      });
+    },
+  },
 
-})
+  mounted() {
+    this.rawEmails = emails.map((email) => {
+      return {
+        email,
+        marked: false,
+      };
+    });
+  },
+});

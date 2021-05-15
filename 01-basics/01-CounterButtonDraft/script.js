@@ -1,18 +1,16 @@
-
 import Vue from './vendor/vue.esm.browser.js';
-
-
 // Требуется создать Vue приложение
 new Vue({
   el: '#app',
-  data:() => {
+  data: () => {
     return {
-      count: 0
-    }
+      count: 0,
+    };
   },
-  methods:{
-    updateCount(){
+
+  methods: {
+    updateCount() {
       this.count++;
-    }
-  }
-})
+    },
+  },
+});
