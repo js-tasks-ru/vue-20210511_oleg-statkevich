@@ -14,8 +14,7 @@
 <div id="app">
   <input
    type="text" 
-   v-model="inputValue"
-   @input = "filterEmails"/>
+   v-model="inputValue"/>
     <ul>
       <li :class="{marked:email.marked}" 
         v-for ="email in filteredEmails">

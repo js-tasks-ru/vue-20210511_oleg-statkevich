@@ -40,29 +40,30 @@ new Vue({
       inputValue: '',
     };
   },
-
+  created(){
+    this.rawEmails = emails.map( email => {
+      return {
+        email,
+        marked:false
+      }
+    }
+    );
+  },
   computed: {
     filteredEmails() {
       if (!this.rawEmails) return null;
-
-      return this.rawEmails.filter((email) => {
-        console.log(email.email.includes(this.inputValue));
+      return this.rawEmails.map((email) => {
         if (email.email.includes(this.inputValue) && this.inputValue) {
-          email.marked = true;
-          return email;
+          return {
+            email:email.email,
+            marked:true
+          };
         }
-        email.marked = false;
-        return email;
+        return {
+          email:email.email,
+          marked:false
+        };
       });
     },
-  },
-
-  mounted() {
-    this.rawEmails = emails.map((email) => {
-      return {
-        email,
-        marked: false,
-      };
-    });
   },
 });

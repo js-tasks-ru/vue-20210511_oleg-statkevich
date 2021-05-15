@@ -6,23 +6,17 @@ new Vue({
   el: '#app',
   data: () => {
     return {
-      meetups: null,
-      selectedMeetup:null
+      meetups: [1,2,3,4,5],
+      selectedMeetup:null,
+      foundMeetup:null
     };
   },
-
-  computed: {
-    filteredMeetups(){
-      if(!this.meetups)
-        return null;
-
-      return this.meetups.splice(0,5)
-    }
-  },
-
-  async mounted() {
-    this.meetups = await fetch('https://course-vue.javascript.ru/api/meetups').
-    then((resp) => 
-    resp.json());
-  },
+  watch: {
+    selectedMeetup: async function (val) {
+      const meetup = await fetch(`https://course-vue.javascript.ru/api/meetups/${val}`).
+        then((resp) => 
+        resp.json());
+      this.foundMeetup = meetup.title;
+    },
+  }
 });

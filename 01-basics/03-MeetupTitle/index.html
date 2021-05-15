@@ -15,13 +15,13 @@
 <!-- Решение -->
 <div id="app">
   <div class="container">
-    <template v-for="meetup in filteredMeetups">
-        <input type="radio" v-bind:value="meetup.title" v-model="selectedMeetup">
-        <label>{{meetup.id}}</label><br>
+    <template v-for="meetup in meetups">
+        <input type="radio" :value="meetup" v-model="selectedMeetup">
+        <label>{{meetup}}</label><br>
     </template>
   </div>
-  <p>
-    {{selectedMeetup}}
+  <p v-if='foundMeetup'>
+    {{foundMeetup}}
   </p>
 </div>
 
