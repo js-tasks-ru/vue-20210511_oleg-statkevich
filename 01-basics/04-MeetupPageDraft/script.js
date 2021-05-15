@@ -45,3 +45,10 @@ const agendaItemIcons = {
 };
 
 // Требуется создать Vue приложение
+
+
+new Vue({
+  el: '#app',
+  data: () => {
+  },
+});
