@@ -49,6 +49,56 @@ const agendaItemIcons = {
 
 new Vue({
   el: '#app',
-  data: () => {
+  data:() => ({
+    choosenMeetupId:MEETUP_ID,
+    meetup:null,
+    meetupImage:null,
+    meetupAgenda:null
+  }),
+  async mounted(){
+
+    this.meetup = await fetch(`${API_URL}/meetups/${this.choosenMeetupId}`).
+      then((resp) => 
+      resp.json());
+
+     if(this.meetup.imageId)
+      this.meetupImage = await getImageUrlByImageId(this.meetup.imageId);
+
+     if(this.meetup.agenda)
+     this.meetupAgenda = this.meetup.agenda.map( meetup =>{
+        let icon = this.setMeetupIcon(meetup);
+        if(!meetup.title)
+          meetup.title = this.setDefaultTitle(meetup);
+       return{
+        ...meetup,
+        icon
+       }
+     })
   },
+  computed:{
+    filteredDate(){
+      if(this.meetup.date)
+      return new Date(this.meetup.date).toLocaleString(navigator.language,{
+        year:'numeric',
+        month:'long',
+        day:'numeric'
+      })
+    }
+  },
+  methods:{
+    setDefaultTitle(meetup){
+      for (let [key, value] of Object.entries(agendaItemDefaultTitles)) {
+        if(key === meetup.type){
+          return value;
+        }
+      }
+    },
+    setMeetupIcon(meetup){
+      for (let [key, value] of Object.entries(agendaItemIcons)) {
+        if(key === meetup.type){
+          return `/assets/icons/icon-${value}.svg`;
+        }
+      }
+    }
+  }
 });
