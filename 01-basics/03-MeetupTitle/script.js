@@ -6,7 +6,6 @@ new Vue({
   el: '#app',
   data: () => {
     return {
-      meetups: [1,2,3,4,5],
       selectedMeetup:null,
       foundMeetup:null
     };

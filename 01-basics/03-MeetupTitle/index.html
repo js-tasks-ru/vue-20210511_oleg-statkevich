@@ -15,7 +15,7 @@
 <!-- Решение -->
 <div id="app">
   <div class="container">
-    <template v-for="meetup in meetups">
+    <template v-for="i in 5">
         <input type="radio" :value="meetup" v-model="selectedMeetup">
         <label>{{meetup}}</label><br>
     </template>
