@@ -51,54 +51,41 @@ new Vue({
   el: '#app',
   data:() => ({
     choosenMeetupId:MEETUP_ID,
-    meetup:null,
-    meetupImage:null,
-    meetupAgenda:null
+    meetup:null
   }),
   async mounted(){
-
     this.meetup = await fetch(`${API_URL}/meetups/${this.choosenMeetupId}`).
       then((resp) => 
       resp.json());
-
-     if(this.meetup.imageId)
-      this.meetupImage = await getImageUrlByImageId(this.meetup.imageId);
-
-     if(this.meetup.agenda)
-     this.meetupAgenda = this.meetup.agenda.map( meetup =>{
-        let icon = this.setMeetupIcon(meetup);
-        if(!meetup.title)
-          meetup.title = this.setDefaultTitle(meetup);
-       return{
-        ...meetup,
-        icon
-       }
-     })
   },
   computed:{
-    filteredDate(){
+    convertedDate(){
       if(this.meetup.date)
       return new Date(this.meetup.date).toLocaleString(navigator.language,{
         year:'numeric',
         month:'long',
         day:'numeric'
       })
+    },
+    meetupAgenda(){
+      return this.meetup.agenda;
+    },
+    meetupDefaultTitle(){
+      if(this.meetup.type)
+      return agendaItemDefaultTitles[this.meetup.type];
+    },
+
+    meetupImage(){
+      if(!this.meetup.imageId)
+      return null;
+
+      return getImageUrlByImageId(this.meetup.imageId);
     }
   },
   methods:{
-    setDefaultTitle(meetup){
-      for (let [key, value] of Object.entries(agendaItemDefaultTitles)) {
-        if(key === meetup.type){
-          return value;
-        }
-      }
-    },
-    setMeetupIcon(meetup){
-      for (let [key, value] of Object.entries(agendaItemIcons)) {
-        if(key === meetup.type){
-          return `/assets/icons/icon-${value}.svg`;
-        }
-      }
+    meetupIcon(type){
+      if(type)
+      return `/assets/icons/icon-${agendaItemIcons[type]}.svg`
     }
   }
 });
