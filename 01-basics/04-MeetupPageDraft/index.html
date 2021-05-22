@@ -13,7 +13,6 @@
   <div v-if="meetup">
     <div  class="meetup-cover" :style="meetupImage ? { '--bg-url' : 'url(' + meetupImage + ')' } : null">
       <h1 v-if="meetup.title" class="meetup-cover__title">{{ meetup.title }}</h1>
-      <h1 v-else class="meetup-cover__title">{{ meetupDefaultTitle }}</h1>
     </div>
 
     <div class="container">
@@ -28,7 +27,7 @@
             <template v-for="meetupEvent in meetupAgenda">
               <div class="meetup-agenda__item">
                 <div class="meetup-agenda__item-col">
-                  <img class="icon" alt="icon" :src="meetupIcon(meetupEvent.type)"/>
+                  <img class="icon" alt="icon" :src="meetupEvent.icon"/>
                 </div>
                 <div class="meetup-agenda__item-col">{{ meetupEvent.startsAt }} - {{ meetupEvent.endsAt }}</div>
                 <div class="meetup-agenda__item-col">

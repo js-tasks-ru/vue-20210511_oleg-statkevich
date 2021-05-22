@@ -68,24 +68,20 @@ new Vue({
       })
     },
     meetupAgenda(){
-      return this.meetup.agenda;
+      return this.meetup.agenda.map( meetup => {
+        if(!meetup.title)
+          meetup.title = agendaItemDefaultTitles[meetup.type];
+        return {
+          ...meetup,
+          icon:`/assets/icons/icon-${agendaItemIcons[meetup.type]}.svg`
+        }
+      });
     },
-    meetupDefaultTitle(){
-      if(this.meetup.type)
-      return agendaItemDefaultTitles[this.meetup.type];
-    },
-
     meetupImage(){
       if(!this.meetup.imageId)
       return null;
 
       return getImageUrlByImageId(this.meetup.imageId);
-    }
-  },
-  methods:{
-    meetupIcon(type){
-      if(type)
-      return `/assets/icons/icon-${agendaItemIcons[type]}.svg`
-    }
+    },
   }
 });
