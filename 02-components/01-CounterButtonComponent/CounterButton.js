@@ -11,7 +11,7 @@ const CounterButton = {
 
   // Компонент должен иметь модель
   model:{
-    props:'value',
+    props:'count',
     event:'increment'
   },
 

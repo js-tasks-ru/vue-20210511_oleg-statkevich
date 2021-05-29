@@ -8,6 +8,7 @@ const MeetupView = {
   name: 'MeetupView',
   props:{
     meetup:{
+      Object,
       required:true
     }
   },
@@ -24,7 +25,7 @@ const MeetupView = {
     }
   },
   template: `
-    <div v-if="meetup">
+    <div>
       <meetup-cover :link="meetupImageLink" :title="meetup.title"></meetup-cover>
       <!-- meetup cover -->
       <div class="container">
