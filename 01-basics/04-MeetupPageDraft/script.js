@@ -45,3 +45,43 @@ const agendaItemIcons = {
 };
 
 // Требуется создать Vue приложение
+
+
+new Vue({
+  el: '#app',
+  data:() => ({
+    choosenMeetupId:MEETUP_ID,
+    meetup:null
+  }),
+  async mounted(){
+    this.meetup = await fetch(`${API_URL}/meetups/${this.choosenMeetupId}`).
+      then((resp) => 
+      resp.json());
+  },
+  computed:{
+    convertedDate(){
+      if(this.meetup.date)
+      return new Date(this.meetup.date).toLocaleString(navigator.language,{
+        year:'numeric',
+        month:'long',
+        day:'numeric'
+      })
+    },
+    meetupAgenda(){
+      return this.meetup.agenda.map( meetup => {
+        if(!meetup.title)
+          meetup.title = agendaItemDefaultTitles[meetup.type];
+        return {
+          ...meetup,
+          icon:`/assets/icons/icon-${agendaItemIcons[meetup.type]}.svg`
+        }
+      });
+    },
+    meetupImage(){
+      if(!this.meetup.imageId)
+      return null;
+
+      return getImageUrlByImageId(this.meetup.imageId);
+    },
+  }
+});

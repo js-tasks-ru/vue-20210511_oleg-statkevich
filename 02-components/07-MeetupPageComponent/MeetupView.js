@@ -8,6 +8,7 @@ const MeetupView = {
   name: 'MeetupView',
   props:{
     meetup:{
+      Object,
       required:true
     }
   },
@@ -19,6 +20,7 @@ const MeetupView = {
   },
   computed:{
     meetupImageLink(){
+       if(this.meetup)
        return this.meetup.imageId ?  getImageUrlByImageId(this.meetup.imageId) : null; 
     }
   },

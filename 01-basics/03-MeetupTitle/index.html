@@ -3,10 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <title>MeetupTitle</title>
+  <style>
+    .container{
+      display: flex;
+    }
+  </style>
 </head>
 <body>
 
+
 <!-- Решение -->
+<div id="app">
+  <div class="container">
+    <template v-for="i in 5">
+        <input type="radio" :value="meetup" v-model="selectedMeetup">
+        <label>{{meetup}}</label><br>
+    </template>
+  </div>
+  <p v-if='foundMeetup'>
+    {{foundMeetup}}
+  </p>
+</div>
 
 <script type="module" src="script.js"></script>
 </body>

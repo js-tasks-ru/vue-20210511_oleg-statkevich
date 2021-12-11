@@ -12,15 +12,15 @@
 <body>
 
 <div id="app">
-  <input type="text" />
-  <ul>
-    <li>Email</li>
-    <li class="marked">Email</li>
-    <li class="marked">Email</li>
-    <li>Email</li>
-    <li>Email</li>
-    <li>...</li>
-  </ul>
+  <input
+   type="text" 
+   v-model="inputValue"/>
+    <ul>
+      <li :class="{marked:email.marked}" 
+        v-for ="email in filteredEmails">
+        {{email.email}}
+      </li>
+    </ul>
 </div>
 
 <script type="module" src="script.js"></script>

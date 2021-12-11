@@ -3,7 +3,9 @@ const MeetupDescription = {
 
   // Входные параметры
   props:{
-    description:String
+    description:{
+      String
+    }
   },
 
   template: `<p class="meetup-description">{{description}}</p>`,
