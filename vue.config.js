@@ -6,6 +6,7 @@ const path = require('path');
  * @return {string} path to real task directory depending on ENV
  */
 function getTaskDir(dirname) {
+  console.log(dirname);
   return process.env.TASK_DEV ? path.join(dirname, 'src') : dirname;
 }
 
@@ -25,11 +26,14 @@ function getTaskFile(dirname, filename) {
  * @return {Object<task,module>[]} - array of objects with module and task numbers
  */
 function discoverVueServeTasksDirs(rootDir = __dirname) {
+
   const isDir = (filepath) => fs.lstatSync(filepath).isDirectory();
+  console.log(isDir);
   const getSubDirs = (dir) => fs.readdirSync(dir).filter((name) => isDir(path.join(dir, name)));
+  console.log(getSubDirs);
   const isModuleOrTaskDir = (dirname) => /^\d+-/.test(dirname);
   const isVueTaskDir = (dir) => fs.existsSync(getTaskFile(dir, 'App.vue'));
-
+  console.log(isVueTaskDir);
   return getSubDirs(rootDir)
     .filter(isModuleOrTaskDir)
     .map((dirname) => ({
